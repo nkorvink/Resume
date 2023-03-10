@@ -1,3 +1,0 @@
-class OpeanWeather:
-    def __init__(self, zipcode, ccode) -> None:
-        pass
