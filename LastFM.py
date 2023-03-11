@@ -1,20 +1,9 @@
 import urllib.request
 import json
 import ssl
+from WebAPI import WebAPI
 
-class LastFM:
-    def __init__(self) -> None:
-        self.apikey = None
-        self.data = None
-        self.topsongcount = None
-        
-    def set_apikey(self, apikey:str) -> None:
-        '''
-        Sets the apikey required to make requests to a web API.
-        :param apikey: The apikey supplied by the API service
-
-        '''
-        self.apikey = apikey
+class LastFM(WebAPI):
     
     def load_data(self) -> None:
         '''
@@ -30,4 +19,12 @@ class LastFM:
         req = urllib.request.Request(url)
         with urllib.request.urlopen(req) as response:
             data = json.loads(response.read().decode())
-            self.topsongcount = data["artists"]["artist"][0]["playcount"]
+            self.want = data["artists"]["artist"][0]["playcount"]
+
+    def transclude(self, message:str):
+        message = message.split(" ")
+        for i in range(len(message)):
+                if message[i] == "@lastfm":
+                    message[i] = self.want
+        message = " ".join(message)
+        return message

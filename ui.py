@@ -12,7 +12,7 @@ import a4
 import Profile
 import sys
 
-def ui():
+def main():
     adminMode = False
 
     user = Profile.Profile()
@@ -49,3 +49,5 @@ def ui():
         else:
             print("Invalid input")
 
+if __name__ == "__main__":
+    main()

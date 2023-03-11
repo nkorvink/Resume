@@ -24,11 +24,11 @@ def main() -> None:
     zip = "92697"
     ccode = "US"
     apikey = "4d5a3718de2640c3ad57b4a198901c24" #LAST FM KEY 107f1031947e3df0e1a30d5069c61368
-    url = f"https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=107f1031947e3df0e1a30d5069c61368&format=json"
+    url = f"http://api.openweathermap.org/data/2.5/weather?zip={zip},{ccode}&appid={apikey}"
 
     weather_obj = _download_url(url)
     if weather_obj is not None:
-        print(weather_obj)
+        print(weather_obj["weather"][0]["description"])
 
 
 if __name__ == '__main__':

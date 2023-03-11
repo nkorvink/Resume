@@ -13,9 +13,9 @@ import Profile
 import sys
 import ds_client
 import ui
-import OpenWeather
-import LastFM
-
+from OpenWeather import OpenWeather
+from LastFM import LastFM
+from WebAPI import WebAPI
 def recurring(path, userThing):
     for currentItem in os.listdir(path):
         fullPath = os.path.join(path, currentItem)
@@ -41,24 +41,19 @@ def recurringTwo(num, userThing, user):
         user.bio = userThing[num + 1]
     elif "-addpost" == userThing[num]:
         user.add_post = message
+        message = " ".join(message)
         answer = input("do you want this post sent to the internet? y/n only: ")
         if answer == "y":
-            weather = OpenWeather.OpenWeather("92697", "US")
+            weather = OpenWeather()
             weather.set_apikey("4d5a3718de2640c3ad57b4a198901c24")
             weather.load_data()
+            message = weather.transclude(message)
 
-            music = LastFM.LastFM()
+            music = LastFM()
             music.set_apikey("107f1031947e3df0e1a30d5069c61368")
             music.load_data()
+            message = music.transclude(message)
 
-            for i in range(len(message)):
-                if message[i] == "@weather":
-                    message[i] = weather.description
-
-                if message[i] == "@lastfm":
-                    message[i] = music.topsongcount
-
-            message = " ".join(message)
             server = user.dsuserver
             port = 3021
             username = user.username
@@ -131,9 +126,3 @@ def E(userThing, user):
 def P(userThing, user):
     post = Profile.Post()
     recurringThree(1, userThing, user, post)
-
-def main():
-    ui.ui
-
-if __name__ == "__main__":
-    main()
