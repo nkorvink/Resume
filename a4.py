@@ -9,7 +9,6 @@
 # 39562903
 
 import os
-import Profile
 import ds_client
 import ui
 from OpenWeather import OpenWeather
@@ -162,4 +161,16 @@ def main():
 
 
 if __name__ == "__main__":
+    print("Hello, and welcome to the UI")
+    print("Some example commands to run are: ")
+    print("1. 'C [folder path] -n [file name]' will create a file with the specified name at the desired location.")
+    print("2. 'O [file path]' will load a already created user")
+    print("3. 'L [folder path]' will print the contents of the specified folder")
+    print("4. 'R [file path]' will show what is in the file")
+    print("5. 'D [file path]' will delete the specified folder")
+    print("6. 'E [command] [info]' will take a alredy loaded user and add the information to a location based on the command given.")
+    print("Commands include: -usr, -pwd, -bio, -addpost, -delpost")
+    print("7. 'P [command]' will print the specified command of the loaded user")
+    print("Commands include: -usr, -pwd, -bio, -posts, -post [ID#], -all")
+    print("8. 'Q' quits the program")
     main()
