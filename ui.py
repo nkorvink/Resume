@@ -12,7 +12,7 @@ import a4
 import Profile
 import sys
 
-def main():
+def ui():
     adminMode = False
 
     user = Profile.Profile()
@@ -21,33 +21,31 @@ def main():
         userThing = input("Enter the information: ").split()
 
         if userThing[0] == "Q":
-            a4.Q
+            a4.Q_command
         
         folderPath = userThing[1]
 
         if userThing[0] == "L":
-            a4.L(folderPath, userThing)
+            a4.L_command(folderPath, userThing)
         
         elif userThing[0] == "D":
-            a4.D(folderPath)
+            a4.D_command(folderPath)
         
         elif userThing[0] == "R":
-            a4.R(folderPath)
+            a4.R_command(folderPath)
         
         elif userThing[0] == "C" and "-n" in userThing:
-            a4.C(folderPath, userThing, user)
+            a4.C_command(folderPath, userThing, user)
         
         elif userThing[0] == "O":
-            a4.O(userThing, user)
+            folderPathExtra = folderPath
+            a4.O_command(userThing, user)
         
         elif userThing[0] == "E":
-            a4.E(userThing, user)
+            a4.E_command(userThing, user, folderPathExtra)
 
         elif userThing[0] == "P":
-            a4.P(userThing, user)
+            a4.P_command(userThing, user)
 
         else:
             print("Invalid input")
-
-if __name__ == "__main__":
-    main()

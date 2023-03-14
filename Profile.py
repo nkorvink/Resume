@@ -112,7 +112,7 @@ class Profile:
     """
 
     def add_post(self, post: Post) -> None:
-        self._posts.append(post)
+        self._posts.append({"entry": post, "timestamp": time.time()})
 
     """
 
