@@ -31,8 +31,6 @@ def bio(token, bio):
 def extract_json(json_msg) -> DataTuple:
   '''
   Call the json.loads function on a json string and convert it to a DataTuple object
-  
-  TODO: replace the pseudo placeholder keys with actual DSP protocol keys
   '''
   try:
     json_obj = json.loads(json_msg)
@@ -43,3 +41,17 @@ def extract_json(json_msg) -> DataTuple:
     print("Json cannot be decoded.")
 
   return DataTuple(msg, token, typ)
+
+def directmessage(user_token, entry, recipient):
+  message = {"token":user_token, "directmessage": {"entry": entry,"recipient":recipient, "timestamp": time.time()}}
+  unread_messages = {"token":user_token, "directmessage": "new"}
+  all_messages = {"token":user_token, "directmessage": "all"}
+  return message, unread_messages, all_messages
+
+def decipher(response, messages, lst):
+  if response == {"response": {"type": "ok", "message": "Direct message sent"}}:
+    messages = json.loads(messages)
+    for i in messages["response"]["messages"]:
+      lst.append(i)
+  return lst
+
