@@ -50,7 +50,6 @@ def directmessage(user_token, entry, recipient):
 
 def decipher(response, messages, lst):
   if response == {"response": {"type": "ok", "message": "Direct message sent"}}:
-    messages = json.loads(messages)
     for i in messages["response"]["messages"]:
       lst.append(i)
   return lst

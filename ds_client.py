@@ -61,3 +61,11 @@ def send(server:str, port:int, username:str, password:str, message:str, bio:str=
   works = ds_protocol.post(token, message) #sets post and token information to json format
   connection_to_server(server, port, works)
   return True
+
+def send_message(server:str, port:int, message:str, recipient:str, username:str, password:str):
+  usr = ds_protocol.join(username, password)
+  token = get_token(server, port, usr)
+  entry = ds_protocol.directmessage(token, message, recipient)
+  connection_to_server(server, port, entry[0])
+  connection_to_server(server, port, entry[1])
+  return True
