@@ -100,6 +100,8 @@ class Profile:
         self.password = password # REQUIRED
         self.bio = ''            # OPTIONAL
         self._posts = []         # OPTIONAL
+        self.friends = {}
+        self.save_file_name = f"{self.username}.json"
     
     """
 
@@ -199,3 +201,23 @@ class Profile:
                 raise DsuProfileError(ex)
         else:
             raise DsuFileError()
+
+    def add_friend(self, friend: str):
+        self.friends.append(friend)
+
+    def add_message(self, username, message):
+        if username in self.friends:
+            self.friends[username].append(message)
+        else:
+            self.friends[username] = [message]
+    
+    def save_data(self):
+        with open(self.save_file_name, "w") as file:
+            json.dump(self.friends, file)
+
+    def load_data(self):
+        try:
+            with open(self.save_file_name, "r") as file:
+                self.friends = json.load(file)
+        except FileNotFoundError:
+            pass

@@ -42,15 +42,19 @@ def extract_json(json_msg) -> DataTuple:
 
   return DataTuple(msg, token, typ)
 
-def directmessage(user_token, entry, recipient):
-  message = {"token":user_token, "directmessage": {"entry": entry,"recipient":recipient, "timestamp": time.time()}}
-  unread_messages = {"token":user_token, "directmessage": "new"}
-  all_messages = {"token":user_token, "directmessage": "all"}
-  return message, unread_messages, all_messages
+def directmessage(user_token, entry, recipient, que=None):
+  message = {}
+  if que == None:
+    message = {"token":user_token, "directmessage": {"entry": entry,"recipient":recipient, "timestamp": time.time()}}
+  elif que == "all":
+    message = {"token":user_token, "directmessage": "all"}
+  elif que == "new":
+    message = {"token":user_token, "directmessage": "new"}
+  return message
 
-def decipher(response, messages, lst):
-  if response == {"response": {"type": "ok", "message": "Direct message sent"}}:
-    for i in messages["response"]["messages"]:
-      lst.append(i)
+def decipher(messages, lst):
+  messages = json.loads(messages)
+  for i in messages["response"]["messages"]:
+    lst.append(i)
   return lst
 
