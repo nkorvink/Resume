@@ -3,6 +3,7 @@ import json
 import ssl
 from WebAPI import WebAPI
 
+
 class LastFM(WebAPI):
     
     def load_data(self) -> None:
@@ -21,7 +22,7 @@ class LastFM(WebAPI):
             data = json.loads(response.read().decode())
             self.want = data["artists"]["artist"][0]["playcount"]
 
-    def transclude(self, message:str):
+    def transclude(self, message: str):
         message = message.split(" ")
         for i in range(len(message)):
                 if message[i] == "@lastfm":

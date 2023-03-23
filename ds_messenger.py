@@ -5,6 +5,7 @@ import ds_protocol
 from LastFM import LastFM
 from OpenWeather import OpenWeather
 
+
 class DirectMessage:
     def __init__(self):
         self.recipient = None
@@ -18,7 +19,7 @@ class DirectMessenger:
         self.username = username
         self.password = password
         self.token = None
-		
+
     def send(self, message:str, recipient:str) -> bool:
         # TODO must return true if message successfully sent, false if send failed.
         weather = OpenWeather()
@@ -43,7 +44,7 @@ class DirectMessenger:
             return True
         except:
             return False
-		
+
     def retrieve_new(self) -> list:
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
@@ -87,7 +88,7 @@ class DirectMessenger:
                 dm.timestamp = i["timestamp"]
                 lst.append(dm)
             return lst
-        
+
     def get_token(self):
         if self.dsuserver != "168.235.86.101":
             return False

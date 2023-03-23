@@ -44,7 +44,7 @@ class Post(dict):
     when the entry object is set and an entry property that stores the post message.
 
     """
-    def __init__(self, entry:str = None, timestamp:float = 0):
+    def __init__(self, entry: str = None, timestamp: float = 0):
         self._timestamp = timestamp
         self.set_entry(entry)
 
@@ -53,7 +53,7 @@ class Post(dict):
         dict.__init__(self, entry=self._entry, timestamp=self._timestamp)
     
     def set_entry(self, entry):
-        self._entry = entry 
+        self._entry = entry
         dict.__setitem__(self, 'entry', entry)
 
         # If timestamp has not been set, generate a new from time module
@@ -62,11 +62,11 @@ class Post(dict):
 
     def get_entry(self):
         return self._entry
-    
-    def set_time(self, time:float):
+
+    def set_time(self, time: float):
         self._timestamp = time
         dict.__setitem__(self, 'timestamp', time)
-    
+
     def get_time(self):
         return self._timestamp
 
@@ -79,8 +79,8 @@ class Post(dict):
     """ 
     entry = property(get_entry, set_entry)
     timestamp = property(get_time, set_time)
-    
-    
+
+
 class Profile:
     """
     The Profile class exposes the properties required to join an ICS 32 DSU server. You 
@@ -96,14 +96,14 @@ class Profile:
     """
 
     def __init__(self, dsuserver=None, username=None, password=None):
-        self.dsuserver = dsuserver # REQUIRED
-        self.username = username # REQUIRED
-        self.password = password # REQUIRED
-        self.bio = ''            # OPTIONAL
-        self._posts = []         # OPTIONAL
+        self.dsuserver = dsuserver
+        self.username = username
+        self.password = password
+        self.bio = ''
+        self._posts = []
         self.friends = {}
         self.save_file_name = f"{self.username}.json"
-    
+
     """
 
     add_post accepts a Post object as parameter and appends it to the posts list. Posts 
@@ -133,7 +133,7 @@ class Profile:
             return True
         except IndexError:
             return False
-        
+
     """
     
     get_posts returns the list object containing all posts that have been added to the 
@@ -184,7 +184,6 @@ class Profile:
     """
     def load_profile(self, path, usr) -> None:
         p = Path(f"{path}/{usr}.dsu")
-        print(p)
         if p.exists() and p.suffix == '.dsu':
             try:
                 f = open(p, 'r')
@@ -198,7 +197,7 @@ class Profile:
                     self._posts.append(post)
                 self.friends = obj['friends']
                 f.close()
-                return(self.username, self.password, self.bio)
+                return (self.username, self.password, self.bio)
             except Exception as ex:
                 raise DsuProfileError(ex)
         else:
@@ -219,18 +218,7 @@ class Profile:
         music.load_data()
         message = music.transclude(message)
         try:
-            self.friends[to].append({"message":message, "from":f, "timestamp":time.time()})
+            self.friends[to].append({"message": message, "from": f, "timestamp": time.time()})
         except Exception:
             self.add_friend(to)
-            self.friends[to].append({"message":message, "from":f, "timestamp":time.time()})
-    
-    def save_data(self):
-        with open(self.save_file_name, "w") as file:
-            json.dump(self.friends, file)
-
-    def load_data(self):
-        try:
-            with open(self.save_file_name, "r") as file:
-                self.friends = json.load(file)
-        except FileNotFoundError:
-            pass
+            self.friends[to].append({"message": message, "from": f, "timestamp": time.time()})

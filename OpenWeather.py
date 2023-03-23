@@ -2,6 +2,7 @@ import urllib.request
 import json
 from WebAPI import WebAPI
 
+
 class OpenWeather(WebAPI):
     
     def load_data(self) -> None:
@@ -18,7 +19,7 @@ class OpenWeather(WebAPI):
             data = json.loads(response.read().decode())
             self.want = data["weather"][0]["description"]
 
-    def transclude(self, message:str):
+    def transclude(self, message: str):
         message = message.split(" ")
         for i in range(len(message)):
                 if message[i] == "@weather":
