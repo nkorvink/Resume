@@ -155,8 +155,8 @@ class Profile:
     Raises DsuFileError
 
     """
-    def save_profile(self, usr) -> None:
-        p = Path(f"/Users/nikokorvink/Desktop/pythonfolder/a5/{usr}.dsu")
+    def save_profile(self, path, usr) -> None:
+        p = Path(f"{path}/{usr}.dsu")
 
         if p.exists() and p.suffix == '.dsu':
             try:
@@ -181,9 +181,9 @@ class Profile:
     Raises DsuProfileError, DsuFileError
 
     """
-    def load_profile(self, usr) -> None:
-        p = Path(f"/Users/nikokorvink/Desktop/pythonfolder/a5/{usr}.dsu")
-        print(p.exists)
+    def load_profile(self, path, usr) -> None:
+        p = Path(f"{path}/{usr}.dsu")
+        print(p)
         if p.exists() and p.suffix == '.dsu':
             try:
                 f = open(p, 'r')
@@ -207,7 +207,11 @@ class Profile:
         self.friends[friend] = []
 
     def add_message(self, to, f, message):
-        self.friends[to].append({"message":message, "from":f, "timestamp":time.time()})
+        try:
+            self.friends[to].append({"message":message, "from":f, "timestamp":time.time()})
+        except Exception:
+            self.add_friend(to)
+            self.friends[to].append({"message":message, "from":f, "timestamp":time.time()})
     
     def save_data(self):
         with open(self.save_file_name, "w") as file:
