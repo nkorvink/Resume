@@ -3,6 +3,8 @@ from tkinter import ttk, filedialog
 from typing import Text
 import ds_messenger
 from Profile import Profile
+from LastFM import LastFM
+from OpenWeather import OpenWeather
 
 
 class Body(tk.Frame):
@@ -39,6 +41,16 @@ class Body(tk.Frame):
         self.entry_editor.delete(1.0, tk.END)
 
     def insert_user_message(self, message:str):
+        weather = OpenWeather()
+        weather.set_apikey(
+        "4d5a3718de2640c3ad57b4a198901c24")
+        weather.load_data()
+        message = weather.transclude(message)
+        music = LastFM()
+        music.set_apikey(
+        "107f1031947e3df0e1a30d5069c61368")
+        music.load_data()
+        message = music.transclude(message)
         self.entry_editor.insert(1.0, message + '\n', 'entry-right')
 
     def insert_contact_message(self, message:str):
@@ -193,7 +205,7 @@ class MainApp(tk.Frame):
         self.direct_messenger.send(message, self.recipient)
         self.body.insert_user_message(message)
         self.body.clear_text_entry()
-        self.profile.add_message(self.recipient, self.username ,message)
+        self.profile.add_message(self.recipient, self.username, message)
         self.profile.save_profile(self.path, self.username)
         pass
 
@@ -236,7 +248,6 @@ class MainApp(tk.Frame):
         self.direct_messenger = ds_messenger.DirectMessenger(ud.server, ud.user, ud.pwd)
         self.direct_messenger.get_token()
         self.profile = Profile(self.server, self.username, self.password)
-        print(f"{self.path}{self.username}.dsu")
         self.profile.load_profile(self.path, self.username)
 
     def show_friends(self):

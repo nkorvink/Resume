@@ -16,7 +16,8 @@
 #
 import json, time
 from pathlib import Path
-
+from LastFM import LastFM
+from OpenWeather import OpenWeather
 
 """
 DsuFileError is a custom exception handler that you should catch in your own code. It
@@ -207,6 +208,16 @@ class Profile:
         self.friends[friend] = []
 
     def add_message(self, to, f, message):
+        weather = OpenWeather()
+        weather.set_apikey(
+        "4d5a3718de2640c3ad57b4a198901c24")
+        weather.load_data()
+        message = weather.transclude(message)
+        music = LastFM()
+        music.set_apikey(
+        "107f1031947e3df0e1a30d5069c61368")
+        music.load_data()
+        message = music.transclude(message)
         try:
             self.friends[to].append({"message":message, "from":f, "timestamp":time.time()})
         except Exception:

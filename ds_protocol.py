@@ -11,7 +11,6 @@
 import json
 from collections import namedtuple
 import time
-
 # Namedtuple to hold the values retrieved from json messages.
 # TODO: update this named tuple to use DSP protocol keys
 DataTuple = namedtuple('DataTuple', ['message','token', 'type'])
