@@ -158,6 +158,7 @@ class MainApp(tk.Frame):
         self.password = None
         self.server = None
         self.recipient = None
+        self.gone = True
         # You must implement this! You must configure and
         # instantiate your DirectMessenger instance after this line.
         #self.direct_messenger = ... continue!
@@ -173,8 +174,7 @@ class MainApp(tk.Frame):
         self.direct_messenger.send(message, self.recipient)
         self.body.insert_user_message(message)
         self.body.clear_text_entry()
-        message = {"message":message, "from":self.username, "timestamp":time.time()}
-        self.profile.add_message(self.recipient, message)
+        self.profile.add_message(self.recipient, self.username ,message)
         self.profile.save_profile(self.username)
         pass
 
@@ -197,6 +197,9 @@ class MainApp(tk.Frame):
                 self.body.insert_user_message(i["message"])
         self.recipient = recipient
 
+    def close(self):
+        self.gone = False
+
     def configure_server(self):
         ud = NewContactDialog(self.root, "Configure Account",
                               self.username, self.password, self.server)
@@ -216,9 +219,9 @@ class MainApp(tk.Frame):
         # DirectMessenger instance after this line.
 
     def check_new(self):
-        data = self.direct_messenger.retrieve_all()
+        data = self.direct_messenger.retrieve_new()
         for i in data:
-            self.profile.add_message(i.recipient, i.message)
+            self.profile.add_message(i.recipient, i.recipient, i.message)
             if i.recipient == self.recipient:
                 self.body.insert_contact_message(i.message)
         self.profile.save_profile(self.username)
@@ -280,8 +283,8 @@ if __name__ == "__main__":
     main.update()
     main.minsize(main.winfo_width(), main.winfo_height())
     id = main.after(0, app.configure_server())
-    main.after(0, app.check_new())
-    print(id)
-    # And finally, start up the event loop for the program (you can find
-    # more on this in lectures of week 9 and 10).
-    main.mainloop()
+    while app.gone:
+        main.after(0, app.check_new())
+        main.update()
+        main.protocol("WM_DELETE_WINDOW", app.close)
+    main.destroy()

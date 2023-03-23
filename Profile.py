@@ -206,11 +206,8 @@ class Profile:
     def add_friend(self, friend: str):
         self.friends[friend] = []
 
-    def add_message(self, username, message):
-        if username in self.friends:
-            self.friends[username].append(message)
-        else:
-            self.friends[username] = [message]
+    def add_message(self, to, f, message):
+        self.friends[to].append({"message":message, "from":f, "timestamp":time.time()})
     
     def save_data(self):
         with open(self.save_file_name, "w") as file:
