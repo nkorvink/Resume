@@ -155,8 +155,8 @@ class Profile:
     Raises DsuFileError
 
     """
-    def save_profile(self, path: str) -> None:
-        p = Path(path)
+    def save_profile(self, usr) -> None:
+        p = Path(f"/Users/nikokorvink/Desktop/pythonfolder/a5/{usr}.dsu")
 
         if p.exists() and p.suffix == '.dsu':
             try:
@@ -181,9 +181,9 @@ class Profile:
     Raises DsuProfileError, DsuFileError
 
     """
-    def load_profile(self, path: str) -> None:
-        p = Path(path)
-
+    def load_profile(self, usr) -> None:
+        p = Path(f"/Users/nikokorvink/Desktop/pythonfolder/a5/{usr}.dsu")
+        print(p.exists)
         if p.exists() and p.suffix == '.dsu':
             try:
                 f = open(p, 'r')
@@ -195,6 +195,7 @@ class Profile:
                 for post_obj in obj['_posts']:
                     post = Post(post_obj['entry'], post_obj['timestamp'])
                     self._posts.append(post)
+                self.friends = obj['friends']
                 f.close()
                 return(self.username, self.password, self.bio)
             except Exception as ex:
@@ -203,7 +204,7 @@ class Profile:
             raise DsuFileError()
 
     def add_friend(self, friend: str):
-        self.friends.append(friend)
+        self.friends[friend] = []
 
     def add_message(self, username, message):
         if username in self.friends:

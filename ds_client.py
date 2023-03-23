@@ -7,7 +7,6 @@
 # 39562903
 
 # The actual server can be found at the address 168.235.86.101 and port 3021
-import ui
 import socket
 import ds_protocol
 import json

@@ -33,8 +33,6 @@ class DirectMessenger:
             return False
 		
     def retrieve_new(self) -> list:
-        if self.dsuserver != "168.235.86.101":
-            return False
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
             client.connect((self.dsuserver, 3021)) #connects to server
@@ -57,8 +55,6 @@ class DirectMessenger:
             return lst
 
     def retrieve_all(self) -> list:
-        if self.dsuserver != "168.235.86.101":
-            return False
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
             client.connect((self.dsuserver, 3021)) #connects to server
