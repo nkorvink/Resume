@@ -1,7 +1,7 @@
 # Hi I'm Niko
 
 Education: Currently a second year enrolled at the University of California, Irvine as a Data Science major.<br>
-  Completed Coursework: "Introduction to Linear Algebra", "Boolean Logic and Discrete Structures", "Intermediate Programming"<br>
+    Completed Coursework: "Introduction to Linear Algebra", "Boolean Logic and Discrete Structures", "Intermediate Programming"<br>
   Current Coursework: "Programming in C/C++ as a Second Language, "Discrete Mathematics for Computer Science"<br>
   Future Coursework: "Statistical Computing and Exploratory Data Analysis, "Machine Learning and Data-Mining", "Neural Networks and Deep Learning"<br>
   Expected Graduation date: June 2026<br>
