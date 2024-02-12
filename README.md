@@ -18,5 +18,5 @@ Hobbies: Muay Thai, Working on cars, videogames<br>
 
 Fun Facts:<br>
 - I am an Eagle Scout and earned that rank in February 2021.<br>
-- I adore the rain, to the point that I will purposely take walks in it. I do not have an umbrella nor do I intend to.<br>
+- I adore the rain, to the point that I will purposely take walks in it. I do not own an umbrella nor do I intend to.<br>
 - Mythos and Folklore are my favorite things to read, I currently know Norse, Greek, and Roman, and I am learning about Celtic Mythology.<br>
