@@ -3,8 +3,12 @@ from tkinter import ttk, filedialog
 from typing import Text
 import ds_messenger
 from Profile import Profile
-from LastFM import LastFM
-from OpenWeather import OpenWeather
+from LastFM import LastFM #API for getting music information
+from OpenWeather import OpenWeather #API for gathering weather
+
+
+#NOTE, server is now offline so the program will not work.
+
 
 """
 creates the body for the GUI
@@ -176,7 +180,7 @@ class NewContactDialog(tk.simpledialog.Dialog):
         self.server_label = tk.Label(frame, width=30, text="DS Server Address")
         self.server_label.pack()
         self.server_entry = tk.Entry(frame, width=30)
-        self.server_entry.insert(tk.END, "168.235.86.101")
+        self.server_entry.insert(tk.END, "168.235.86.101")  #NOTE, server is now offline so the program will not work.
         self.server_entry.pack()
 
         self.username_label = tk.Label(frame, width=30, text="Username")
